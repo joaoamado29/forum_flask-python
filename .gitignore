@@ -1,0 +1,116 @@
+# ==============================================================================
+# ARQUIVO .gitignore - PROJETO FORUM_FLASK
+# ==============================================================================
+# Este arquivo diz ao Git quais pastas e arquivos NÃO devem ser enviados ao
+# repositório. Isso evita que arquivos temporários, senhas, ambientes pesados
+# e configurações pessoais fiquem salvos no histórico do projeto.
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. ARQUIVOS TEMPORÁRIOS DO PYTHON (Bytecode e Cache)
+# ------------------------------------------------------------------------------
+# Quando você roda o Python, ele cria arquivos compilados (.pyc) e pastas de cache
+# (__pycache__) para que o código inicialize mais rápido nas próximas vezes.
+# Como o Python recria tudo isso automaticamente, não precisamos guardar no Git.
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ------------------------------------------------------------------------------
+# 2. AMBIENTES VIRTUAIS (Onde ficam instaladas as bibliotecas)
+# ------------------------------------------------------------------------------
+# As pastas de ambiente virtual guardam todas as bibliotecas instaladas (como o Flask).
+# Elas são muito pesadas e dependem do sistema operacional de quem instalou.
+# Quem baixar o projeto só precisa rodar "pip install -r requirements.txt".
+.venv/
+venv/
+env/
+ENV/
+.env/
+
+# ------------------------------------------------------------------------------
+# 3. SEGURANÇA E VARIÁVEIS DE AMBIENTE (Segredos e Senhas)
+# ------------------------------------------------------------------------------
+# Arquivos que guardam senhas, chaves de API secretas e configurações locais.
+# NUNCA envie estes arquivos para o Git para manter a segurança do sistema!
+.env
+.flaskenv
+*.env
+!.env.example
+secrets.json
+*.pem
+*.key
+
+# ------------------------------------------------------------------------------
+# 4. BANCO DE DADOS LOCAL E PASTA DE INSTÂNCIA DO FLASK
+# ------------------------------------------------------------------------------
+# O Flask usa a pasta "instance/" para guardar dados da aplicação em execução,
+# como arquivos SQLite de teste. Ignoramos para não enviar dados de teste locais
+# ou sobrescrever informações do banco de dados de outros colegas de equipe.
+instance/
+*.sqlite
+*.sqlite3
+*.db
+
+# ------------------------------------------------------------------------------
+# 5. TESTES E COBERTURA DE CÓDIGO
+# ------------------------------------------------------------------------------
+# Ferramentas de teste (como Pytest) geram pastas temporárias para lembrar
+# o histórico dos testes e relatórios de cobertura. Não são necessárias no Git.
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# ------------------------------------------------------------------------------
+# 6. ARQUIVOS GERADOS POR EDITORES DE CÓDIGO (IDEs)
+# ------------------------------------------------------------------------------
+# Cada desenvolvedor tem preferências pessoais no VS Code, PyCharm, etc.
+# Ignoramos essas pastas para que as preferências de um não interfiram no outro.
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ------------------------------------------------------------------------------
+# 7. ARQUIVOS DO SISTEMA OPERACIONAL (Windows e macOS)
+# ------------------------------------------------------------------------------
+# O Windows e o Mac criam arquivos automáticos para guardar miniaturas de imagens
+# e posições de janelas. Eles não têm utilidade para o código do projeto.
+Thumbs.db
+ehthumbs.db
+desktop.ini
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# ------------------------------------------------------------------------------
+# 8. PACOTES E DISTRIBUIÇÃO PYTHON
+# ------------------------------------------------------------------------------
+# Pastas criadas se você for empacotar e publicar o projeto no formato de biblioteca.
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# ------------------------------------------------------------------------------
+# 9. REGISTROS DE EXECUÇÃO (Logs)
+# ------------------------------------------------------------------------------
+# Arquivos de log registram o que aconteceu quando o servidor estava rodando.
+# Podem crescer muito rápido e mudar a todo segundo, então não devem ir para o Git.
+*.log
