@@ -30,10 +30,7 @@ class FormCriarConta(FlaskForm):
 
 # Classe de Login
 class FormLogin(FlaskForm):
-    email = StringField('Email', validators=[
-        DataRequired(), 
-        Email()
-        ])
+    email = StringField('Email', validators=[DataRequired(), Email()])
 
     senha = PasswordField('Senha', validators=[
         DataRequired(), 
