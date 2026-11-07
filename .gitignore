@@ -114,3 +114,12 @@ wheels/
 # Arquivos de log registram o que aconteceu quando o servidor estava rodando.
 # Podem crescer muito rápido e mudar a todo segundo, então não devem ir para o Git.
 *.log
+
+# ------------------------------------------------------------------------------
+# 10. Skills, Agents e Hooks
+# ------------------------------------------------------------------------------
+# Arquivos de harness em caso de usar IA
+
+
+.agents/
+skills-lock.json
