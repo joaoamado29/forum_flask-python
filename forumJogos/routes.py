@@ -1,6 +1,7 @@
-from forumJogos import app
+from forumJogos import app, database
 from forumJogos.forms import FormLogin, FormCriarConta
 from flask import render_template, url_for, request, flash, redirect
+from forumJogos.models import Usuario, Post
 
 lista_usuarios = ['Joao', 'Ana', 'Liliane', 'Amado'] # Temporário
 
@@ -27,7 +28,14 @@ def login():
         return redirect(url_for('home'))
 
     if form_criarconta.validate_on_submit() and 'botao_submit_criarconta' in request.form:
-        flash(f'Conta criada com sucesso no email: {form_login.email.data}', 'alert-success')
+        # Criou usuario
+        usuario = Usuario(username=form_criarconta.username.data, email=form_criarconta.email.data, senha=form_criarconta.senha.data)
+
+        # Commit usuario no BD
+        database.session.add(usuario)
+        database.session.commit()
+
+        flash(f'Conta criada com sucesso no email: {form_criarconta.email.data}', 'alert-success')
         return redirect(url_for('home'))
 
     return render_template('login.html', form_login=form_login, form_criarconta=form_criarconta)

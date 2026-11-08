@@ -1,5 +1,5 @@
-# from forumJogos import app, database
-# from forumJogos.models import Usuario, Post
+from forumJogos import app, database
+from forumJogos.models import Usuario, Post
 
 # with app.app_context():
 #     database.create_all()
@@ -27,3 +27,6 @@
 # with app.app_context():
 #     post = Post.query.first()
 #     print(post.autor.email)/
+
+# with app.app_context():
+#     database.drop_all()
