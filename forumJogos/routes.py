@@ -1,4 +1,4 @@
-from forumJogos import app, database
+from forumJogos import app, database, bcrypt
 from forumJogos.forms import FormLogin, FormCriarConta
 from flask import render_template, url_for, request, flash, redirect
 from forumJogos.models import Usuario, Post
@@ -28,8 +28,9 @@ def login():
         return redirect(url_for('home'))
 
     if form_criarconta.validate_on_submit() and 'botao_submit_criarconta' in request.form:
+        senha_cript = bcrypt.generate_password_hash(form_criarconta.senha.data)
         # Criou usuario
-        usuario = Usuario(username=form_criarconta.username.data, email=form_criarconta.email.data, senha=form_criarconta.senha.data)
+        usuario = Usuario(username=form_criarconta.username.data, email=form_criarconta.email.data, senha=senha_cript)
 
         # Commit usuario no BD
         database.session.add(usuario)
