@@ -1,4 +1,4 @@
-from main import database
+from forumJogos import database
 from datetime import datetime, timezone
 
 utc_now = datetime.now(timezone.utc)
