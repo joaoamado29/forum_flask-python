@@ -2,7 +2,7 @@ from forumJogos import app, database, bcrypt
 from forumJogos.forms import FormLogin, FormCriarConta
 from flask import render_template, url_for, request, flash, redirect
 from forumJogos.models import Usuario, Post
-from flask_login import login_user, logout_user, current_user
+from flask_login import login_user, logout_user, current_user, login_required
 
 lista_usuarios = ['Joao', 'Ana', 'Liliane', 'Amado'] # Temporário
 
@@ -16,6 +16,7 @@ def contato():
     return render_template('contato.html')
 
 @app.route('/users')
+@login_required
 def users():
     return render_template('usuarios.html', lista_usuarios = lista_usuarios)
 
@@ -30,7 +31,12 @@ def login():
         if usuario and bcrypt.check_password_hash(usuario.senha, form_login.senha.data):
             login_user(usuario, remember=form_login.lembrar_dados.data)
             flash(f'Login feito com sucesso no email: {form_login.email.data}', 'alert-success')
-            return redirect(url_for('home'))
+            par_next = request.args.get('next')
+            if par_next:
+                return redirect(par_next)
+            else:
+                return redirect(url_for('par_next'))
+        
         else:
             flash('Falha no Login! Email ou senha incorretos.', 'alert-danger')
 
@@ -49,15 +55,18 @@ def login():
     return render_template('login.html', form_login=form_login, form_criarconta=form_criarconta)
 
 @app.route('/sair')
+@login_required
 def sair():
     logout_user()
     flash('Logout feito com sucesso.', 'alert-success')
     return redirect(url_for('home'))
 
 @app.route('/perfil')
+@login_required
 def perfil():
     return render_template('perfil.html')
 
 @app.route('/post/criar')
+@login_required
 def criar_post():
     return render_template('criarpost.html')
