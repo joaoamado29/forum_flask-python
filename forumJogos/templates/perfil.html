@@ -1,8 +1,103 @@
 {% extends 'base.html' %}
 
+{% block head %}
+<!-- Importamos os ícones do Bootstrap para enriquecer visualmente o cartão -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<style>
+    /* Garante que a foto fique circular e centralizada sem distorção */
+    .foto-perfil {
+        width: 130px;
+        height: 130px;
+        object-fit: cover;
+    }
+</style>
+{% endblock %}
+
 {% block body %}
-    <div>
-        <br>
-        <p class="container">Meu Perfil</p>
+<!-- Container principal com espaçamento vertical -->
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <!-- Coluna responsiva: ocupa toda a largura em telas pequenas e metade em telas médias/grandes -->
+        <div class="col-12 col-md-8 col-lg-6">
+
+            <!-- Cartão de Perfil (Card do Bootstrap 5) -->
+            <div class="card shadow-sm border-0 rounded-4 overflow-hidden">
+                
+                <!-- Faixa superior decorativa do cartão -->
+                <div class="bg-success bg-gradient py-4 text-center text-white">
+                    <h4 class="mb-1 fw-bold">Meu Perfil</h4>
+                    <small class="opacity-75">Fórum de Jogos</small>
+                </div>
+
+                <!-- Corpo do cartão com as informações do usuário logado -->
+                <div class="bg-success-subtle card-body text-center p-4">
+                    
+                    <!-- Foto de Perfil redonda com borda e sombra suave -->
+                    <div class="mb-3 mt-n5">
+                        <img src="{{ foto_perfil if foto_perfil is defined and foto_perfil else url_for('static', filename='fotos_perfil/' + current_user.foto_perfil) }}" 
+                             alt="Foto de perfil de {{ current_user.username }}" 
+                             class="foto-perfil rounded-circle img-thumbnail shadow">
+                    </div>
+
+                    <!-- Nome de usuário em destaque -->
+                    <h3 class="card-title fw-bold text-success mb-1">{{ current_user.username }}</h3>
+
+                    <!-- E-mail do usuário com ícone -->
+                    <p class="text-muted mb-3">
+                        <i class="bi bi-envelope-fill me-1 text-success"></i>{{ current_user.email }}
+                    </p>
+
+                    <!-- Distintivo/Badge indicando o jogo favorito ou especialidade -->
+                    <div class="mb-4">
+                        <span class="badge bg-light text-success border px-3 py-2 rounded-pill">
+                            <i class="bi bi-controller me-1 text-success"></i> Jogo Favorito: <strong>{{ current_user.jogo }}</strong>
+                        </span>
+                    </div>
+
+                    <!-- Divisor sutil -->
+                    <hr class="text-muted opacity-25">
+
+                    <!-- Painel com estatísticas rápidas do usuário -->
+                    <div class="row text-center py-2">
+                        <div class="col-6 border-end">
+                            <h4 class="fw-bold mb-0 text-success">{{ current_user.post|length }}</h4>
+                            <small class="text-muted d-block">
+                                <i class="bi bi-chat-left-text me-1"></i>Postagens
+                            </small>
+                        </div>
+                        <div class="col-6">
+                            <h4 class="fw-bold mb-0 text-success">
+                                <i class="bi bi-patch-check-fill"></i>
+                            </h4>
+                            <small class="text-muted d-block">
+                                Conta Verificada
+                            </small>
+                        </div>
+                    </div>
+
+                    <!-- Divisor sutil -->
+                    <hr class="text-muted opacity-25">
+
+                    <!-- Botões de ação para navegação rápida -->
+                    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mt-4">
+                        <a href="{{ url_for('criar_post') }}" class="btn btn-success px-4 py-2 rounded-pill">
+                            <i class="bi bi-plus-circle me-1"></i> Criar Post
+                        </a>
+                        <a href="{{ url_for('home') }}" class="btn btn-outline-secondary px-4 py-2 rounded-pill">
+                            <i class="bi bi-house-door me-1"></i> Início
+                        </a>
+                    </div>
+
+                </div>
+
+                <!-- Rodapé com identificador de membro -->
+                <div class="bg-success-subtle card-footer bg-light text-center py-2 text-muted small border-top-0">
+                    <i class="bi bi-person-badge me-1"></i> Membro #{{ current_user.id }}
+                </div>
+
+            </div>
+
+        </div>
     </div>
-    {% endblock %}
+</div>
+{% endblock %}

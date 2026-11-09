@@ -1,40 +1,145 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light border">
-  <div class="container-fluid container">
-    <a class="navbar-brand" href="{{ url_for('home') }}">Página Inicial</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<!-- Importamos a biblioteca de ícones do Bootstrap (Bootstrap Icons) -->
+<!-- O que faz: Permite usar pequenos desenhos (como casinha, usuário e controle) nos links -->
+<!-- Por que foi feito assim: Torna o menu muito mais intuitivo e visualmente agradável sem precisar carregar imagens pesadas -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<!-- Barra de navegação principal (Navbar) -->
+<!-- O que faz: É a barra superior fixa que acompanha a navegação pelo fórum -->
+<!-- Por que foi feito assim: Usamos 'bg-success' com 'bg-gradient' para cumprir a regra da cor verde tema do fórum, 'navbar-dark' para garantir que os textos fiquem brancos e legíveis, e 'shadow-sm' para destacar a barra do conteúdo da página -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-success bg-gradient shadow-sm sticky-top custom-navbar py-2">
+  <div class="container">
+    
+    <!-- Logotipo e Nome do Fórum -->
+    <!-- O que faz: Identifica o site e funciona como link direto para a página inicial -->
+    <!-- Por que foi feito assim: Colocamos um ícone de controle de videogame ao lado do nome para reforçar a temática 'gamer' do fórum -->
+    <a class="navbar-brand d-flex align-items-center gap-2 fw-bold text-white fs-4" href="{{ url_for('home') }}">
+      <i class="bi bi-controller fs-3 text-warning"></i>
+      <span>Fórum Jogos</span>
+    </a>
+
+    <!-- Botão Hamburguer (Menu para celulares e telas pequenas) -->
+    <!-- O que faz: Em telas pequenas, ele esconde os links dentro de um botão que se abre ao ser tocado -->
+    <!-- Por que foi feito assim: É o padrão de responsividade do Bootstrap 5.3 para que o menu não ocupe espaço excessivo no celular -->
+    <button class="navbar-toggler border-white border-opacity-50" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Alternar navegação">
       <span class="navbar-toggler-icon"></span>
     </button>
+
+    <!-- Conteúdo que recolhe e expande no celular (Collapse) -->
+    <!-- O que faz: Agrupa os links de navegação e as opções de login/perfil de forma organizada -->
+    <!-- Por que foi feito assim: Garante que tudo fique alinhado horizontalmente no computador e empilhado verticalmente no celular -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      
+      <!-- Links de navegação gerais (Lado esquerdo) -->
+      <!-- O que faz: Leva o usuário para as páginas de Início, Lista de Usuários e Contatos -->
+      <!-- Por que foi feito assim: O 'me-auto' empurra os botões de login/perfil para o lado direito, criando uma separação visual limpa -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-1 pt-2 pt-lg-0">
+        
+        <!-- Link Página Inicial -->
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="{{ url_for('users') }}">Usuários</a>
+          <a class="nav-link px-3 rounded-pill text-white {% if request.endpoint == 'home' %}active bg-white bg-opacity-25 fw-bold{% endif %}" href="{{ url_for('home') }}">
+            <i class="bi bi-house-door-fill me-1"></i> Início
+          </a>
         </li>
+
+        <!-- Link Usuários -->
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('contato') }}">Contatos</a>
+          <a class="nav-link px-3 rounded-pill text-white {% if request.endpoint == 'users' %}active bg-white bg-opacity-25 fw-bold{% endif %}" href="{{ url_for('users') }}">
+            <i class="bi bi-people-fill me-1"></i> Usuários
+          </a>
+        </li>
+
+        <!-- Link Contatos -->
+        <li class="nav-item">
+          <a class="nav-link px-3 rounded-pill text-white {% if request.endpoint == 'contato' %}active bg-white bg-opacity-25 fw-bold{% endif %}" href="{{ url_for('contato') }}">
+            <i class="bi bi-envelope-fill me-1"></i> Contatos
+          </a>
         </li>
       </ul>
-      <ul class="navbar-nav">
+
+      <!-- Ações do Usuário e Autenticação (Lado direito) -->
+      <!-- O que faz: Exibe ferramentas de postagem e conta dependendo se a pessoa está logada ou não -->
+      <!-- Por que foi feito assim: Usamos 'current_user.is_authenticated' do Flask-Login para mostrar dinamicamente apenas o que faz sentido para cada estado de usuário -->
+      <ul class="navbar-nav align-items-lg-center gap-2 pt-2 pt-lg-0 border-top border-lg-0 border-white border-opacity-25 mt-2 mt-lg-0">
 
         {% if current_user.is_authenticated %}
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{ url_for('criar_post')}}">Criar Post</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{ url_for('perfil')}}">Meu Perfil</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{ url_for('sair')}}">Sair</a>
-        </li>
+          <!-- ============================================== -->
+          <!-- SE O USUÁRIO ESTIVER LOGADO                    -->
+          <!-- ============================================== -->
+
+          <!-- Botão de Criar Post -->
+          <!-- O que faz: Leva diretamente para o formulário de criação de publicação -->
+          <!-- Por que foi feito assim: Usamos 'btn-light' para criar um contraste marcante sobre o fundo verde, incentivando a criação de conteúdo -->
+          <li class="nav-item">
+            <a class="btn btn-light text-success fw-bold px-3 shadow-sm rounded-pill d-flex align-items-center justify-content-center" href="{{ url_for('criar_post') }}">
+              <i class="bi bi-plus-circle-fill me-1"></i> Criar Post
+            </a>
+          </li>
+
+          <!-- Menu suspenso (Dropdown) com o Perfil do Usuário -->
+          <!-- O que faz: Mostra a foto e o nome do usuário, com opções de acessar o perfil ou sair da conta -->
+          <!-- Por que foi feito assim: Agrupa ações pessoais em um menu limpo, moderno e economiza espaço tanto no desktop quanto no mobile -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-white d-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10" href="#" id="navbarUserDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <!-- Foto de perfil em miniatura -->
+              <img src="{{ url_for('static', filename='fotos_perfil/' + (current_user.foto_perfil if current_user.foto_perfil else 'default.jpg')) }}" 
+                   alt="Foto de perfil de {{ current_user.username }}" 
+                   class="rounded-circle border border-2 border-white shadow-sm" 
+                   width="30" 
+                   height="30" 
+                   style="object-fit: cover;">
+              <!-- Nome do usuário -->
+              <span class="fw-semibold">{{ current_user.username }}</span>
+            </a>
+
+            <!-- Lista de opções dentro do menu suspenso -->
+            <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-3 mt-2" aria-labelledby="navbarUserDropdown">
+              <li>
+                <div class="dropdown-item-text text-muted small pb-2 border-bottom">
+                  Conectado como <strong class="text-dark">{{ current_user.username }}</strong>
+                </div>
+              </li>
+              <li>
+                <!-- Link para o perfil pessoal -->
+                <a class="dropdown-item d-flex align-items-center py-2" href="{{ url_for('perfil') }}">
+                  <i class="bi bi-person-circle text-success me-2 fs-5"></i> Meu Perfil
+                </a>
+              </li>
+              <li><hr class="dropdown-divider my-1"></li>
+              <li>
+                <!-- Botão para encerrar a sessão (Logout) -->
+                <a class="dropdown-item d-flex align-items-center py-2 text-danger" href="{{ url_for('sair') }}">
+                  <i class="bi bi-box-arrow-right me-2 fs-5"></i> Sair
+                </a>
+              </li>
+            </ul>
+          </li>
 
         {% else %}
+          <!-- ============================================== -->
+          <!-- SE O VISITANTE NÃO ESTIVER LOGADO             -->
+          <!-- ============================================== -->
+
+          <!-- Botão para Entrar (Login) -->
+          <!-- O que faz: Leva o visitante para a tela de autenticação -->
+          <!-- Por que foi feito assim: Usamos o estilo 'btn-outline-light' (contorno branco sutil) para indicar ação secundária com elegância -->
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{{ url_for('login')}}">Login</a>
+            <a class="btn btn-outline-light px-3 rounded-pill fw-semibold d-flex align-items-center justify-content-center" href="{{ url_for('login') }}">
+              <i class="bi bi-box-arrow-in-right me-1"></i> Entrar
+            </a>
           </li>
+
+          <!-- Botão para Criar Conta -->
+          <!-- O que faz: Direciona para o formulário de cadastro de nova conta -->
+          <!-- Por que foi feito assim: Usamos 'btn-light' com texto em verde para funcionar como um botão de destaque principal (Call to Action), atraindo novos usuários -->
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{{ url_for('login') }}">Criar conta</a>
+            <a class="btn btn-light text-success px-3 rounded-pill fw-bold shadow-sm d-flex align-items-center justify-content-center" href="{{ url_for('login') }}">
+              <i class="bi bi-person-plus-fill me-1"></i> Criar Conta
+            </a>
           </li>
+
         {% endif %}
       </ul>
+
     </div>
   </div>
 </nav>

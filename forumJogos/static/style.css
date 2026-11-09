@@ -1,0 +1,46 @@
+/* ==========================================================================
+   FOLHA DE ESTILOS GERAL DO FÓRUM (STYLE.CSS)
+   ========================================================================== 
+   Este arquivo centraliza as personalizações visuais do fórum.
+   Aqui ficam os estilos da barra de navegação e você pode adicionar novas
+   regras e temas para qualquer outra página no futuro.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. BARRA DE NAVEGAÇÃO (NAVBAR)
+   -------------------------------------------------------------------------- */
+
+/* Transição Geral da Barra de Navegação */
+/* O que faz: Adiciona uma transição suave para qualquer mudança visual na barra. */
+/* Por que foi feito assim: Garante que as transições de tamanho e cor ocorram de forma fluida. */
+.custom-navbar {
+  transition: all 0.3s ease;
+}
+
+/* Links de Navegação */
+/* O que faz: Prepara os links para animarem suavemente quando o usuário passar o mouse. */
+/* Por que foi feito assim: Melhora a sensação de responsividade e modernidade da interface. */
+.navbar-nav .nav-link {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Efeito ao Passar o Mouse (Hover) nos Links */
+/* O que faz: Aplica um fundo branco suave (translúcido) e eleva o link em 1 pixel. */
+/* Por que foi feito assim: Oferece um retorno tátil claro de clique sem alterar a harmonia do verde principal. */
+.navbar-nav .nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+/* Efeito ao Passar o Mouse no Logotipo/Marca */
+/* O que faz: Diminui levemente a opacidade do nome do fórum ao passar o mouse. */
+/* Por que foi feito assim: Indica visualmente que o logotipo é clicável e direciona para a página inicial. */
+.navbar-brand:hover {
+  opacity: 0.9;
+}
+
+/* --------------------------------------------------------------------------
+   2. ESPAÇO PARA FUTURAS ALTERAÇÕES E CUSTOMIZAÇÕES DO SITE
+   -------------------------------------------------------------------------- 
+   Adicione aqui abaixo novas classes e regras para posts, cards, botões, etc.
+   -------------------------------------------------------------------------- */
