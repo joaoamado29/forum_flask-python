@@ -35,7 +35,7 @@ def login():
             if par_next:
                 return redirect(par_next)
             else:
-                return redirect(url_for('par_next'))
+                return redirect(url_for('home'))
         
         else:
             flash('Falha no Login! Email ou senha incorretos.', 'alert-danger')
