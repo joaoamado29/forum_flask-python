@@ -1,10 +1,15 @@
-from forumJogos import database
+from forumJogos import database, login_manager
 from datetime import datetime, timezone
+from flask_login import UserMixin
 
 utc_now = datetime.now(timezone.utc)
 
+@login_manager.user_loader
+def load_usuario(id_usuario):
+    return Usuario.query.get(int(id_usuario))
 
-class Usuario(database.Model):
+
+class Usuario(database.Model, UserMixin):
     id = database.Column(database.Integer, primary_key=True, autoincrement=True)
     username = database.Column(database.String, nullable=False)
     email = database.Column(database.String, nullable=False, unique=True)
