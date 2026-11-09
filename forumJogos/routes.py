@@ -2,7 +2,7 @@ from forumJogos import app, database, bcrypt
 from forumJogos.forms import FormLogin, FormCriarConta
 from flask import render_template, url_for, request, flash, redirect
 from forumJogos.models import Usuario, Post
-from flask_login import login_user
+from flask_login import login_user, logout_user, current_user
 
 lista_usuarios = ['Joao', 'Ana', 'Liliane', 'Amado'] # Temporário
 
@@ -24,6 +24,7 @@ def login():
     form_login = FormLogin()
     form_criarconta = FormCriarConta()
 
+    # Validação de login
     if form_login.validate_on_submit() and 'botao_submit_login' in request.form:
         usuario = Usuario.query.filter_by(email=form_login.email.data).first()
         if usuario and bcrypt.check_password_hash(usuario.senha, form_login.senha.data):
@@ -46,3 +47,17 @@ def login():
         return redirect(url_for('home'))
 
     return render_template('login.html', form_login=form_login, form_criarconta=form_criarconta)
+
+@app.route('/sair')
+def sair():
+    logout_user()
+    flash('Logout feito com sucesso.', 'alert-success')
+    return redirect(url_for('home'))
+
+@app.route('/perfil')
+def perfil():
+    return render_template('perfil.html')
+
+@app.route('/post/criar')
+def criar_post():
+    return render_template('criarpost.html')
