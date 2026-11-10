@@ -1,0 +1,79 @@
+{% extends 'perfil.html' %}
+
+{% block form_editar_perfil %}
+<!-- Formulário de edição centralizado e alinhado ao perfil -->
+<div class="container mb-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+
+            <!-- Card com cantos arredondados e sombra -->
+            <div class="card shadow-sm border-0 rounded-4 overflow-hidden">
+                
+                <!-- Faixa superior verde com gradiente -->
+                <div class="bg-success bg-gradient text-white py-3 px-4 d-flex align-items-center">
+                    <i class="bi bi-pencil-square fs-5 me-2"></i>
+                    <h5 class="mb-0 fw-bold">Editar Dados do Perfil</h5>
+                </div>
+
+                <!-- Corpo do formulário -->
+                <div class="card-body p-4 bg-light bg-opacity-50">
+                    <form method="POST" action="">
+                        {{ form.csrf_token }}
+
+                        <!-- Campo: Nome de Usuário -->
+                        <div class="mb-3">
+                            {{ form.username.label(class="form-label fw-semibold text-secondary") }}
+                            <div class="input-group">
+                                <span class="input-group-text bg-white border-end-0 text-success">
+                                    <i class="bi bi-person-fill"></i>
+                                </span>
+                                {% if form.username.errors %}
+                                    {{ form.username(class="form-control border-start-0 is-invalid", placeholder="Nome de usuário") }}
+                                    <div class="invalid-feedback">
+                                        {% for erro in form.username.errors %}
+                                            {{ erro }}
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.username(class="form-control border-start-0", placeholder="Nome de usuário") }}
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Campo: E-mail -->
+                        <div class="mb-3">
+                            {{ form.email.label(class="form-label fw-semibold text-secondary") }}
+                            <div class="input-group">
+                                <span class="input-group-text bg-white border-end-0 text-success">
+                                    <i class="bi bi-envelope-fill"></i>
+                                </span>
+                                {% if form.email.errors %}
+                                    {{ form.email(class="form-control border-start-0 is-invalid", placeholder="E-mail") }}
+                                    <div class="invalid-feedback">
+                                        {% for erro in form.email.errors %}
+                                            {{ erro }}
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.email(class="form-control border-start-0", placeholder="E-mail") }}
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Botões de Ação -->
+                        <div class="d-grid gap-2 d-sm-flex justify-content-sm-end pt-3 border-top">
+                            <a href="{{ url_for('perfil') }}" class="btn btn-outline-secondary px-4 py-2 rounded-pill">
+                                Cancelar
+                            </a>
+                            {{ form.botao_submit_confirmaredicao(class="btn btn-success px-4 py-2 rounded-pill fw-bold shadow-sm") }}
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

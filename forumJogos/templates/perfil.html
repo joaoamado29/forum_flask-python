@@ -78,13 +78,16 @@
                     <!-- Divisor sutil -->
                     <hr class="text-muted opacity-25">
 
-                    <!-- Botões de ação para navegação rápida -->
+                    <!-- Botões de ação para navegação rápida e edição -->
+                    <!-- O que faz: Reúne os botões para editar dados do perfil, criar uma nova publicação ou voltar para a tela inicial -->
+                    <!-- Por que foi feito assim: Utiliza 'd-grid' no celular para preencher a largura e 'd-sm-flex' em telas maiores para organizar os botões lado a lado -->
                     <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mt-4">
                         <a href="{{ url_for('criar_post') }}" class="btn btn-success px-4 py-2 rounded-pill">
                             <i class="bi bi-plus-circle me-1"></i> Criar Post
                         </a>
-                        <a href="{{ url_for('home') }}" class="btn btn-outline-secondary px-4 py-2 rounded-pill">
-                            <i class="bi bi-house-door me-1"></i> Início
+                        <!-- Botão de Editar Perfil (apenas front-end por enquanto, apontando para '#' sem funcionalidade ativa) -->
+                        <a href="perfil/editar" class="btn btn-outline-success px-4 py-2 rounded-pill">
+                            <i class="bi bi-pencil-square me-1"></i> Editar Perfil
                         </a>
                     </div>
 
@@ -100,4 +103,7 @@
         </div>
     </div>
 </div>
+
+{% block form_editar_perfil %}
+{% endblock %}
 {% endblock %}

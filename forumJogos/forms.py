@@ -2,6 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError
 from forumJogos.models import Usuario
+from flask_login import current_user
 
 class FormCriarConta(FlaskForm):
     username = StringField('Nome de Usuário', validators=[
@@ -46,3 +47,25 @@ class FormLogin(FlaskForm):
     botao_submit_login = SubmitField('Login', validators=[
         DataRequired(),
         ])
+
+class FormEditarPerfil(FlaskForm):
+    username = StringField('Nome de Usuário', validators=[
+        DataRequired(),
+        ])
+    
+    email = StringField('Email', validators=[
+        DataRequired(), 
+        Email()
+        ])
+
+    botao_submit_confirmaredicao = SubmitField('Confirmar edição')
+
+    def validate_email(self, email):
+        if current_user.email != email.data:
+            usuario = Usuario.query.filter_by(email=email.data).first()
+            if usuario:
+                raise ValidationError('Email já cadastrado.')
+
+    # def validate_user(self, user):
+    #     if current_user.username != username.data():
+    #         usuario = U
