@@ -1,4 +1,5 @@
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError
 from forumJogos.models import Usuario
@@ -58,6 +59,9 @@ class FormEditarPerfil(FlaskForm):
         Email()
         ])
 
+    foto_perfil = FileField('Atualizar foto de perfil', validators=[
+        FileAllowed(['jpg', 'png'])
+    ])
     botao_submit_confirmaredicao = SubmitField('Confirmar edição')
 
     def validate_email(self, email):

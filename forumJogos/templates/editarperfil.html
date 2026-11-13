@@ -17,7 +17,7 @@
 
                 <!-- Corpo do formulário -->
                 <div class="card-body p-4 bg-light bg-opacity-50">
-                    <form method="POST" action="">
+                    <form method="POST" action="", enctype="multipart/form-data">
                         {{ form.csrf_token }}
 
                         <!-- Campo: Nome de Usuário -->
@@ -41,7 +41,7 @@
                         </div>
 
                         <!-- Campo: E-mail -->
-                        <div class="mb-3">
+                        <div class="mb-3 form-group">
                             {{ form.email.label(class="form-label fw-semibold text-secondary") }}
                             <div class="input-group">
                                 <span class="input-group-text bg-white border-end-0 text-success">
@@ -58,6 +58,16 @@
                                     {{ form.email(class="form-control border-start-0", placeholder="E-mail") }}
                                 {% endif %}
                             </div>
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.foto_perfil.label }}
+                            {{ form.foto_perfil(class="form-control-file") }}
+                            {% if form.foto_perfil.erros %}
+                                {% for erro in form.foto_perfil.errors %}
+                                    <span class="text-danger">{{ erro }}</span>
+                                {% endfor %}
+                            {% endif %}
                         </div>
 
                         <!-- Botões de Ação -->
