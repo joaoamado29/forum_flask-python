@@ -82,6 +82,9 @@ def editar_perfil():
         current_user.username = form.username.data
         database.session.commit()
         flash(f'Perfil editado com sucesso!', 'alert-info')
+    elif request.method == 'GET':
+        form.email.data = current_user.email
+        form.username.data = current_user.username
     foto_perfil = url_for('static', filename=f'fotos_perfil/{current_user.foto_perfil}')
     return render_template('editarperfil.html', foto_perfil=foto_perfil, form=form)
 
